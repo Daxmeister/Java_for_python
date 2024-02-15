@@ -1,34 +1,39 @@
 package AlgCompPack;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 
-public class two_a {
+public class two_a_time {
 	private static Integer n = 4;
 	private static Integer k = 2;
 	private static Double p = 0.7;
 	private static Double[][] cache;
 
 	public static void main(String[] args) {
-		Kattio io = new Kattio(System.in, System.out);
-
 		
-		
-		
-		while (io.hasMoreTokens()) {
-
+		for (int i = 13000; i < 15000; i=i+1000) {
+			System.out.println(i);
+			Instant start = Instant.now();
+			
+			
+			
 			// We read the input
-			n = io.getInt();
-			k = io.getInt();
-			p = io.getDouble();
+			n = i;
+			k = n/2;
+			p = 0.99;
 
 			// Create a cache with room for all values. It will hold value null at every
 			// position.
 			cache = new Double[n + 1][k + 1];
 
 			// And call the function
-			System.out.println(winStreak(n, k));
-
+			winStreak(n, k);
+			Instant end = Instant.now();
+			System.out.println(Duration.between(start, end));
 		}
+		
+		
 
 	}
 

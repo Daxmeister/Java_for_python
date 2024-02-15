@@ -4,27 +4,22 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 
-public class one_e {
+public class one_e_time {
 	private static Integer a = 5;
 	private static Integer b = 6;
 	private static Integer c = 7;
 	private static ArrayList<Integer> cache = new ArrayList<Integer>();
 
 	public static void main(String[] args) {
-		Kattio io = new Kattio(System.in, System.out);
+		Integer i = 220000000;
+		System.out.println(i);
 
-		while (io.hasMoreTokens()) {
-			// We read the input
-			Integer n = io.getInt();
-			a = io.getInt();
-			b = io.getInt();
-			c = io.getInt();
+		Instant start = Instant.now();
+		Integer n = i;
+		coinBot(n);
+		Instant end = Instant.now();
+		System.out.println(Duration.between(start, end));
 
-			// And call the function
-
-			System.out.println(coinBot(n));
-
-		}
 
 	}
 

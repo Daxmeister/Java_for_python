@@ -1,20 +1,35 @@
 package AlgCompPack;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Iterator;
 
 public class one_a {
-	private static Integer a = 0;
-	private static Integer b = 0;
-	private static Integer c = 0;
+	private static Integer a = 5;
+	private static Integer b = 6;
+	private static Integer c = 7;
 	
 	public static void main(String[] args) {
 		Kattio io = new Kattio(System.in, System.out); // Reads an entire ROW of strings at a time
 		
+		for (int i = 100; i < 120; i=i+1) {
+			System.out.println(i);
+			Instant start = Instant.now();
+			Integer n = i;
+			coin(n);
+			Instant end = Instant.now();
+			System.out.println(Duration.between(start, end));
+		}
+	
+
+		
+		
 		while (io.hasMoreTokens()) {
-			Integer n = io.getInt();
+			//Integer n = io.getInt();
 			a = io.getInt();
 			b = io.getInt();
 			c = io.getInt();
-			System.out.println(coin(n));
+			//System.out.println(coin(n));
 			
 			
 

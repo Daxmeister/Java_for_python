@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 
-public class one_c {
+public class one_c_time {
     private static Integer a = 5;
     private static Integer b = 6;
     private static Integer c = 7;       
@@ -14,20 +14,35 @@ public class one_c {
 
     public static void main(String[] args) {
         Kattio io = new Kattio(System.in, System.out); // Reads an entire ROW of strings at a time
-       
-   
-        while (io.hasMoreTokens()) {
-            Integer n = io.getInt();
-            for (int i = 0; i < n+1; i++) {
+        Integer i = 170000000;
+        System.out.println(i);
+		
+		Instant start = Instant.now();
+		Integer n = i;
+		cache = new ArrayList<Integer>();
+		for (int j = 0; j < n+1; j++) {
+            cache.add(-1);
+        }
+		coinMem(n);
+		Instant end = Instant.now();
+		System.out.println(Duration.between(start, end));
+        
+        
+        /*for (int i = 100000; i < 100000 ; i=i+20) {
+			System.out.println(i);
+			
+			Instant start = Instant.now();
+			Integer n = i;
+			cache = new ArrayList<Integer>();
+			for (int j = 0; j < n+1; j++) {
                 cache.add(-1);
             }
-            
-            a = io.getInt();
-            b = io.getInt();
-            c = io.getInt();
-            System.out.println(coinMem(n));
-
-        }
+			coinMem(n);
+			Instant end = Instant.now();
+			System.out.println(Duration.between(start, end));
+		}*/
+        
+       
 
     }
 

@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Iterator;
 
-public class one_a {
+public class ona_a_time {
 	private static Integer a = 5;
 	private static Integer b = 6;
 	private static Integer c = 7;
@@ -12,13 +12,13 @@ public class one_a {
 	public static void main(String[] args) {
 		Kattio io = new Kattio(System.in, System.out); // Reads an entire ROW of strings at a time
 		
-		while (io.hasMoreTokens()) {
-			Integer n = io.getInt();
-			a = io.getInt();
-			b = io.getInt();
-			c = io.getInt();
-			System.out.println(coin(n));
-
+		for (int i = 100; i < 120; i=i+1) {
+			System.out.println(i);
+			Instant start = Instant.now();
+			Integer n = i;
+			coin(n);
+			Instant end = Instant.now();
+			System.out.println(Duration.between(start, end));
 		}
 		
 		

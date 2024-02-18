@@ -1,32 +1,42 @@
 package labs;
 
-public class CustomPair<K, V> {
-    private final K key;
-    private final V value;
+import java.util.Objects;
 
-    public CustomPair(K key, V value) {
-        this.key = key;
-        this.value = value;
+public class CustomPair {
+    private int number1;
+    private int number2;
+
+    public CustomPair(int number1, int number2) {
+        this.number1 = number1;
+        this.number2 = number2;
     }
 
-    public K getKey() {
-        return key;
+    public int key1() {
+        return number1;
     }
 
-    public V getValue() {
-        return value;
+    public int key2() {
+        return number2;
     }
+
+    // Optional: Override equals, hashCode, and toString methods
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        CustomPair<?, ?> other = (CustomPair<?, ?>) obj;
-        return key.equals(other.key) && value.equals(other.value);
+
+        CustomPair CustomPair = (CustomPair) obj;
+        return number1 == CustomPair.number1 && number2 == CustomPair.number2;
     }
 
     @Override
     public int hashCode() {
-        return 31 * key.hashCode() + value.hashCode();
+        return Objects.hash(number1, number2);
+    }
+
+    @Override
+    public String toString() {
+        return "CustomPair{" + "number1=" + number1 + ", number2=" + number2 + '}';
     }
 }

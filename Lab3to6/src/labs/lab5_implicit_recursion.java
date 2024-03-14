@@ -21,8 +21,11 @@ public class lab5_implicit_recursion {
         Kattio io = new Kattio(System.in, System.out); // Reads an entire ROW of strings at a time
 
         while (io.hasMoreTokens()) {
-            int rows = io.getInt();
+            // Read input
+        	int rows = io.getInt();
             int columns = io.getInt();
+            
+            // Turn input to a matrix
             inputMatrix = new char[rows][columns];
             for (int i = 0; i < rows; i++) {
                 String rowString = io.getWord();
@@ -30,12 +33,20 @@ public class lab5_implicit_recursion {
                     inputMatrix[i][j] = rowString.charAt(j);
                 }
             }
-
+            
+            // For each letter, search for paths
             for (char letter : capitalLetters) {
                 currentChar = letter;
+                
+                // Create a new matrix with numbers that correlate to whether it is a starting point, end point
+                // Possible path or a "road block" ie. different letter
                 int[][] intMatrix = createCharMatrix(letter);
                 visitedCoordinates.clear(); // Reset visited coordinates for each new letter
+                
+                // Identify all possible startingpoints ie. top row letters
                 ArrayList<CustomPair> startingPoints = findStaringPoints(intMatrix);
+                
+                // Search for a path, starting in each possible point
                 for (CustomPair startingPoint : startingPoints) {
                     pathfinder(startingPoint, intMatrix);
                 }
@@ -51,18 +62,22 @@ public class lab5_implicit_recursion {
     }
 
     private static void pathfinder(CustomPair coordinates, int[][] intMatrix) {
+    	// Add starting point to a queue
         Queue<CustomPair> queue = new ArrayDeque<>();
         queue.offer(coordinates);
 
+        // Work your way through the queue
         while (!queue.isEmpty()) {
+        	// Take out the first element
             CustomPair currentCoordinates = queue.poll();
             int currentInt = intAtCoordinate(intMatrix, currentCoordinates);
-
+             // Check that the current coordinate has not been visited before and that it is not a road block
             if (visitedCoordinates.contains(currentCoordinates) || currentInt == 0) {
                 continue;
-            } else {
+            } else { // If it is new and a correct letter...
                 if (currentInt == 2) {
                     foundPathsForLetter.add(currentChar);
+                    break;
                 } else {
                     visitedCoordinates.add(currentCoordinates);
 

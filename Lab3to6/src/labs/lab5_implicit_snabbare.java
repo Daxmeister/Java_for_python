@@ -72,11 +72,12 @@ public class lab5_implicit_snabbare {
             if (visitedCoordinates.contains(currentCoordinates) || inputMatrix[currentCoordinates.key1()][currentCoordinates.key2()] != currentChar) {
                 continue;
             } else { // If it is the correct letter...
-                // If it is in the last row, add it to foundPathsForLetter
+                // If it is in the last row, add it to foundPathsForLetter and break out of the loop, we have 
+            	// found a path for this letter
                 if (currentCoordinates.key1() == inputMatrix.length - 1) {
                     foundPathsForLetter.add(currentChar);
                     break;
-                } else {
+                } else { // Else, it is a stepping stone and the search continues..
                     visitedCoordinates.add(currentCoordinates);
 
                     // Add adjacent coordinates to the queue

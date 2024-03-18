@@ -1,7 +1,6 @@
 package labs;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,31 +9,32 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-public class Lab5_new_attempt {
+public class lab5_testable {
 
     private static TreeSet<Character> foundPathsForLetter = new TreeSet<>(); // Contains all letters with paths
     private static char currentChar;
-    private static char[][] inputMatrix;
+    private static char[][] inputMatrix  = {{'A', 'B'}};
+         
     private static char[] capitalLetters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
             'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
     public static void main(String[] args) {
-        Kattio io = new Kattio(System.in, System.out); // Reads an entire ROW of strings at a time
        
 
-        while (io.hasMoreTokens()) {
+        
             // Read input
-            int rows = io.getInt();
-            int columns = io.getInt();
+            int rows = 1;
+            int columns = 2;
 
             // Turn input to a matrix
-            inputMatrix = new char[rows][columns];
-            for (int i = 0; i < rows; i++) {
-                String rowString = io.getWord();
-                for (int j = 0; j < columns; j++) {
-                    inputMatrix[i][j] = rowString.charAt(j);
+            
+            
+            
+            for (int i = 0; i < inputMatrix.length; i++) {
+                for (int j = 0; j < inputMatrix[i].length; j++) {
+                    System.out.print(inputMatrix[i][j]);
                 }
-            }
+                System.out.println();}
 
             // For each letter, search for paths
             for (char letter : capitalLetters) {
@@ -54,9 +54,9 @@ public class Lab5_new_attempt {
             if (foundPathsForLetter.isEmpty()) {
                 System.out.println("0");
             } else {
-                System.out.println(foundPathsForLetter.stream().map(String::valueOf).collect(Collectors.joining(" ")));
+                System.out.println(foundPathsForLetter.stream().map(String::valueOf).collect(Collectors.joining("")));
             }
-        }
+        
     }
 
     private static void pathfinder(CustomPair coordinates) {

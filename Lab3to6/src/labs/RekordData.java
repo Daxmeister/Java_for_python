@@ -12,6 +12,11 @@ public class RekordData implements Comparable<RekordData> {
 		size = sizeIn;
 		unit = unitIn;
 	}
+	
+	public boolean isSame(RekordData other) {
+		if (other.country.equals(this.country) && other.veggie.equals( this.veggie)) {return true;}
+		else {return false;}
+	}
 
 	public int compareTo(RekordData o) {
 		if (this.veggie.compareTo(o.veggie) > 0) {
@@ -41,7 +46,7 @@ public class RekordData implements Comparable<RekordData> {
 		}
 		
 	
-		System.out.println("No condition met, ergo exakt same");
+		//System.out.println("No condition met, ergo exakt same");
 		return 0;
 	
 	}

@@ -10,8 +10,9 @@ public class lab6 {
 
 	public static void main(String[] args) {
 		Kattio io = new Kattio(System.in, System.out); // Reads an entire ROW of strings at a time
-		List<RekordData> dataPointsArray = new ArrayList<RekordData>();
+		List<RekordData> dataPointsArray = new ArrayList<RekordData>(); // Used to save record veggies
 
+		// We iterate through the list of veggie records
 		while (io.hasMoreTokens()) {
 
 			String veggie = io.getWord();
@@ -28,10 +29,13 @@ public class lab6 {
 				}
 			}
 
-			String unit = io.getWord(); // Discard unit of measurement
+			String unit = io.getWord(); // Unit of measurement is recorded for printing purposes
+			
 			replaceIfSameAndBetter(new RekordData(veggie, country, sizeOfVeggie, unit), dataPointsArray);
 
 		}
+		
+		// We sort and print our findings
 		Collections.sort(dataPointsArray);
 		for (RekordData i : dataPointsArray) {
 			System.out.println(i.getPrintable());

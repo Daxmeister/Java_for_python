@@ -19,6 +19,8 @@ public class RekordData implements Comparable<RekordData> {
 	}
 
 	public int compareTo(RekordData o) {
+		// Used for sorting of data entries before printing. Veggie -> size -> country
+		
 		if (this.veggie.compareTo(o.veggie) > 0) {
 			return 1;
 		}

@@ -47,8 +47,13 @@ public class Lab4 {
 		for (int i=0; i<lettersLeft.length; i++) {
 			//Iterates through the list so as to add every possible solution
 		
-			char[] newList = createNewList(lettersLeft, i);
+			// Create list with all letters except at index i
+			char[] newList = createNewList(lettersLeft, i); 
+			
+			// Create new word using old word and the letter we took out at index i
 			String newWord = word + lettersLeft[i];
+			
+			// Use as input for the function recursively
 			permutator(newWord, newList);
 			
 			}

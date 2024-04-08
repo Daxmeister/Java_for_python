@@ -5,19 +5,17 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.io.ByteArrayInputStream; // #######
 
-public class lab2 {
+public class lab2_copywithstring {
 
 	private static Integer V;
 	private static Integer E;
 	private static Integer m;
-	private static List<Integer[]> edgeArrayInteger = null;
-    private static Set<Integer> verticesInEdges = new HashSet<Integer>();
+	private static List<String> edgeArray = null;
+
 	private static List<Integer> singleEdgesToRemove = new ArrayList<Integer>();
 
 	public static void main(String[] args) {
@@ -35,15 +33,13 @@ public class lab2 {
 		E = io.getInt();
 		m = io.getInt();
 
-		edgeArrayInteger = new ArrayList<Integer[]>(); // Used to save edges
+		edgeArray = new ArrayList<String>(); // Used to save edges
 
 		while (io.hasMoreTokens()) {
 
-			Integer edgePoint1 = io.getInt();
+			Integer edgePoint1 = io.getInt(); 											
 			Integer edgePoint2 = io.getInt();
-			verticesInEdges.add(edgePoint1);
-			verticesInEdges.add(edgePoint2);
-			edgeArrayInteger.add(new Integer[] { edgePoint1, edgePoint2 });
+			String edge = edgePoint1 + " " + edgePoint2;
 		}
 
 		if (m == 0 && V > 0) { // Insolvable, we feed it an insolvable problem
@@ -104,10 +100,11 @@ public class lab2 {
 
 			// And then print all other "scenes" ergo edges
 
+			increaseEdgeValues(); // Since we inserted 3 roles in the start, we need to update edgeArray
 
-			for (Integer[] edge : edgeArrayInteger) {
-				System.out.println("2 " + (edge[0]+3) + " " + (edge[1]+3)); // Start with the number of "roles" per scene which is 2
-			} 
+			for (String i : edgeArray) {
+				System.out.println("2 " + i);
+			} // Start with the number of "roles" per scene which is 2
 
 		}
 	}
@@ -115,15 +112,21 @@ public class lab2 {
 	private static void handleLonelyNodes() {
 		// Iterate through through all integers
 		Integer VStart = V;
-		for (int i = VStart; i >= 1; i--) { // We check for every node, 1 through V, if it is part of an edge. Doing it backwards orders them in decreasing size. Good for changing edges later.
-			if (!verticesInEdges.contains(i)) {  // If it is not part of any edge
-				V = V - 1; // Take away one vertex
-				singleEdgesToRemove.add(i); // We flag that we have to remove it
+		for (int i = 1; i <= VStart; i++) { // We check for every node, 1 through V, if it is part of an edge
+			
+			if (containsNumber(edgeArray, i)) { // If it is, then we do nothing
+				// Do nothing
+			
+			} else { // If it is not part of any edge
+					V = V - 1; // Take away one vertex
+					singleEdgesToRemove.add(i); // We flag that we have to remove it
+				
 			}
 		}
-
+		
 		// We then remove all nodes and adjust the edges. We start with the HIGHEST
 		// vertex
+		Collections.sort(singleEdgesToRemove, Collections.reverseOrder()); // Sort in reverse order
 		for (Integer vertex : singleEdgesToRemove) {
 			changeEdgeValues(vertex);
 
@@ -131,16 +134,66 @@ public class lab2 {
 
 	}
 
+	public static boolean containsNumber(List<String> edgeArray, int m) {
+		for (String edge : edgeArray) {
+			String[] parts = edge.split(" ");
+			for (String part : parts) {
+				if (Integer.parseInt(part) == m) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
+	public static void increaseEdgeValues() {
+		// Increases the value of all vertexes by 3
 
+		List<String> edgeArrayIncreased = new ArrayList<>();
 
-	public static void changeEdgeValues(Integer vertexToAdjust) {
+		for (String edge : edgeArray) { // For every edge
+			String[] parts = edge.split(" "); // Create list with the two values as strings
+			Integer counter = 0;
+			Integer[] newParts = new Integer[2]; // Create list to hold values as integers
+			for (String part : parts) { // Convert both values to integers and increase by 3
+				newParts[counter] = Integer.parseInt(part) + 3;
+
+				counter += 1;
+			}
+
+			counter = 0; // Reset counter
+			String stringSnippet = newParts[0] + " " + newParts[1]; // Append both values and create new sting
+			edgeArrayIncreased.add(stringSnippet); // Store that string to the updated edgeArray
+		}
+
+		edgeArray = edgeArrayIncreased; // Replace edgeArray with the increased one
+	}
+
+	public static void changeEdgeValues(Integer vertexToBeRemoved) {
 		// Takes an integer, will reduce all vertexes found in edges by one if they are
 		// greater than that vertex
-		for (Integer[] edge : edgeArrayInteger) {
-			if(edge[0]>vertexToAdjust) {edge[0] --;}
-			if(edge[1]>vertexToAdjust) {edge[1] --;}
 
+		for (Integer i=0; i< edgeArray.size(); i++) { // For every edge
+			String edge = edgeArray.get(i);
+			String[] parts = edge.split(" "); // Create list with the two values as strings
+			Integer counter = 0;
+			Integer[] newParts = new Integer[2]; // Create list to hold values as integers
+			Boolean hasChanged = false;
+			for (String part : parts) { // Convert both values to integers and increase by 3
+				if (Integer.parseInt(part) > vertexToBeRemoved) { // Checks if the vertex comes after and should thus be
+																	// decreased
+					newParts[counter] = Integer.parseInt(part) - 1;
+					hasChanged = true;
+				}
+				counter += 1;
+			}
+
+			counter = 0; // Reset counter
+			if(hasChanged) { // If we made a change, adjust the edgeArray
+			String stringSnippet = newParts[0] + " " + newParts[1]; // Append both values and create new sting
+
+			edgeArray.set(i, stringSnippet); // Replace the value in the edgeArray
+			}
 		}
 	}
 }
